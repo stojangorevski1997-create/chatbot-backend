@@ -30,6 +30,11 @@ function fail(int $code, string $message, array $debug = []): void {
     jsonOut(array_filter(['message' => $message, 'debug' => $debug ?: null], fn($v) => $v !== null), $code);
 }
 function readEnvKey(string $name): ?string {
+    // 1. Try actual environment variable (Render, Railway, production)
+    $env = getenv($name);
+    if ($env !== false && $env !== '') return $env;
+
+    // 2. Try .env file (local dev)
     $envFile = __DIR__ . '/.env';
     if (!file_exists($envFile)) return null;
     foreach (file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $line) {
