@@ -1,0 +1,20 @@
+# Secrets — never commit
+.env
+*.env.local
+
+# Vendor
+/vendor/
+/composer.json
+/composer.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
